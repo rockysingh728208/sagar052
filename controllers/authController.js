@@ -18,14 +18,11 @@ export const register = async (req, res) => {
          return res.status(400).json({success:false, message: "Email already exists" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        
         const result = await cloudinary.uploader.upload(file.path, {
             folder: "profiles"
         });
 
         const verificationCode = crypto.randomBytes(20).toString("hex");
-
         const newUser = new userModel({
             name,
             email,
